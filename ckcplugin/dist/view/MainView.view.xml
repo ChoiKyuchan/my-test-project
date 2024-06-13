@@ -1,0 +1,37 @@
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    controllerName="dongkuk.custom.plugin.ckcplugin.controller.MainView"
+    busyIndicatorDelay="0"
+    height="100%">
+    <App>
+        <Page>
+            <headerContent>
+                <Button
+                    id="idBackButton"
+                    visible="false"
+                    text="{i18n>template.back.btn}"
+                    tooltip="{i18n>template.back.tooltip}"
+                    icon="sap-icon://nav-back"
+                    press="onBackButtonPress" />
+                <ToolbarSpacer />    
+                <Title id="headerTitle" text="SAP DMC POD Plugin" />
+                <ToolbarSpacer />
+                <Button
+                    id="closeButton"
+                    visible="false"
+                    tooltip="{i18n>template.close.tooltip}"
+                    icon="sap-icon://decline"
+                    press="onClosePress" />
+            </headerContent>
+            <content>
+                <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="100%">
+                    <Title text="DMC POD Plugin is Ready!! 123123123123"/>
+                </FlexBox>
+              
+            </content>
+
+        </Page>
+
+    </App>
+</mvc:View>
