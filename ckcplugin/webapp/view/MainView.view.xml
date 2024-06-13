@@ -33,7 +33,7 @@
                 </FlexBox>
 
 
-                <Table id="table" inset="false" headerText="Sample Table">
+                <!--<Table id="table" inset="false" headerText="Sample Table">
                     <columns>
                         <Column>
                             <header>
@@ -71,6 +71,43 @@
                                 <Text text="aa"/>
                                 <Text text="bb"/>
                                 <Text text="cc"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                -->
+
+                <Table items="{apiData>/steps}">
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="Steps" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column>
+                            <Text text="Step ID" />
+                        </Column>
+                        <Column>
+                            <Text text="Description" />
+                        </Column>
+                        <Column>
+                            <Text text="Planned Work Center" />
+                        </Column>
+                        <Column>
+                            <Text text="Scheduled Start Date" />
+                        </Column>
+                        <Column>
+                            <Text text="Scheduled Completion Date" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{apiData>stepId}" />
+                                <Text text="{apiData>description}" />
+                                <Text text="{apiData>plannedWorkCenter}" />
+                                <Text text="{apiData>operationScheduledStartDate}" />
+                                <Text text="{apiData>operationScheduledCompletionDate}" />
                             </cells>
                         </ColumnListItem>
                     </items>
