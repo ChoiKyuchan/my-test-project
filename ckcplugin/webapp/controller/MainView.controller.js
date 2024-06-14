@@ -23,7 +23,7 @@ sap.ui.define([
             
             this.get(apis.get_sfcDetails,{
                plant: this.getPlant(),
-               sfc:"P_T_05261"
+               sfc:"S000000124"
            }).then(res=>{
                //console.log(res)
                TestJsonData.setData(res)
@@ -76,6 +76,9 @@ sap.ui.define([
         },
         onBackButtonPress: function (oEvent) {
             MessageToast.show('Back Button Pressed!')
+        },
+        onClickAlertButton: function (oEvent) {
+            MessageToast.show('TEST 버튼 클릭')
         },
 
         onExit: function () {

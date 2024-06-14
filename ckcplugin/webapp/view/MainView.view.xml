@@ -29,7 +29,10 @@
                     <Title text="DM 테스트"/>
                 </FlexBox>
                 <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="10%">
-                    <Button text="1" type="Accept" /><Button text="2" type="Reject" />
+                    <Button id="alerttButton"
+                            text="alert"
+                            type="Accept"
+                            press="onClickAlertButton" />
                 </FlexBox>
 
 

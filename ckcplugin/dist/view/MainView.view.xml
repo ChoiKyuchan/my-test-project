@@ -25,9 +25,93 @@
                     press="onClosePress" />
             </headerContent>
             <content>
-                <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="100%">
-                    <Title text="DMC POD Plugin is Ready!! 123123123123"/>
+                <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="10%">
+                    <Title text="DM 테스트"/>
                 </FlexBox>
+                <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="10%">
+                    <Button text="1" type="Accept" /><Button text="2" type="Reject" />
+                </FlexBox>
+
+
+                <!--<Table id="table" inset="false" headerText="Sample Table">
+                    <columns>
+                        <Column>
+                            <header>
+                                <Label text="Column 1"/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Column 2"/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Column 3"/>
+                            </header>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="aa"/>
+                                <Text text="bb"/>
+                                <Text text="cc"/>
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="aa"/>
+                                <Text text="bb"/>
+                                <Text text="cc"/>
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="aa"/>
+                                <Text text="bb"/>
+                                <Text text="cc"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                -->
+
+                <Table items="{apiData>/steps}">
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="Steps" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column>
+                            <Text text="Step ID" />
+                        </Column>
+                        <Column>
+                            <Text text="Description" />
+                        </Column>
+                        <Column>
+                            <Text text="Planned Work Center" />
+                        </Column>
+                        <Column>
+                            <Text text="Scheduled Start Date" />
+                        </Column>
+                        <Column>
+                            <Text text="Scheduled Completion Date" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{apiData>stepId}" />
+                                <Text text="{apiData>description}" />
+                                <Text text="{apiData>plannedWorkCenter}" />
+                                <Text text="{apiData>operationScheduledStartDate}" />
+                                <Text text="{apiData>operationScheduledCompletionDate}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
               
             </content>
 

@@ -19,14 +19,18 @@ sap.ui.define([
             this.getView().byId("headerTitle").setText(podConfigs.title);
 
             //Example of calling public API
-            /*
+            var TestJsonData = new JSONModel();
+            
             this.get(apis.get_sfcDetails,{
                plant: this.getPlant(),
-               sfc:"enter sfc here"
+               sfc:"S000000124"
            }).then(res=>{
-               console.log(res)
+               //console.log(res)
+               TestJsonData.setData(res)
            })
-           */
+
+           this.getView().setModel(TestJsonData, "apiData");
+           
         },
         onBeforeRenderingPlugin: function () {
 
