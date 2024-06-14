@@ -1,0 +1,34 @@
+ID: ckcplugin
+_schema-version: '3.2'
+version: 0.0.1
+
+modules:
+ - name: ckcplugin
+   type: html5
+   path: ckcplugin
+   parameters:
+      disk-quota: 512M
+      memory: 256M
+   properties:
+    httpHeaders:
+       - X-Frame-Options: deny
+    CORS: "[{\"uriPattern\": \"^/ckcplugin/(.*)$\",\"allowedOrigin\": [
+           {\"host\": \"cloud-platform-integration-partner-p300005-qhzagpq9.test.execution.us20.dmc.cloud.sap\",\"protocol\": \"https\"}],
+           \"allowedMethods\": [\"GET\",\"OPTIONS\"],
+           \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
+           \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
+           \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-industry-type\",\"x-dme-plant\",\"x-features\"],
+           \"exposeHeaders\": [\"Accept\",\"Authorization\",\"X-Requested-With\",\"X-Sap-Cid\",
+           \"Access-Control-Allow-Origin\",\"Access-Control-Allow-Credentials\",\"X-Csrf-Token\",
+           \"Content-Type\",\"x-dme-industry-type\",\"x-dme-plant\",\"x-features\"]}]"
+   requires:
+    - name: uaa_ckcplugin
+
+resources:
+ - name: uaa_ckcplugin
+   parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+   type: org.cloudfoundry.managed-service
+

@@ -1,0 +1,15 @@
+{
+  "welcomeFile": "/ckcplugin/index.html",
+  "authenticationMethod": "none",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+      "source": "^/ckcplugin/(.*)$",
+      "target": "$1",
+      "localDir": "dist",
+      "cacheControl": "public, max-age=3600, must-revalidate"
+    }
+  ]
+}

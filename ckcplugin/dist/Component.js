@@ -1,0 +1,2 @@
+sap.ui.define(["sap/dm/dme/podfoundation/component/production/ProductionUIComponent","sap/ui/Device","sap/ui/model/json/JSONModel"],function(n,e,t){"use strict";return n.extend("dongkuk.custom.plugin.ckcplugin.Component",{metadata:{manifest:"json"},init:function(){n.prototype.init.apply(this,arguments);var i=new t(e);i.setDefaultBindingMode("OneWay");this.setModel(i,"device");this.getRouter().initialize()}})});
+//# sourceMappingURL=Component.js.map

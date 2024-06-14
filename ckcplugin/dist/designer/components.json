@@ -1,0 +1,15 @@
+{
+	"components": [
+		{
+			"id": "ckcplugin",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": false,
+			"name": "dongkuk.custom.plugin.ckcplugin",
+			"propertyEditor": "dongkuk.custom.plugin.ckcplugin.builder.PropertyEditor",
+			"i18n": "dongkuk.custom.plugin.ckcplugin.i18n.i18n",
+            "productionProcessEnabled": false,
+           "productionProcessTitle": "ckcplugin",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER"]
+		}   
+	]
+}

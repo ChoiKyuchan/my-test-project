@@ -1,0 +1,121 @@
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    controllerName="dongkuk.custom.plugin.ckcplugin.controller.MainView"
+    busyIndicatorDelay="0"
+    height="100%">
+    <App>
+        <Page>
+            <headerContent>
+                <Button
+                    id="idBackButton"
+                    visible="false"
+                    text="{i18n>template.back.btn}"
+                    tooltip="{i18n>template.back.tooltip}"
+                    icon="sap-icon://nav-back"
+                    press="onBackButtonPress" />
+                <ToolbarSpacer />    
+                <Title id="headerTitle" text="SAP DMC POD Plugin" />
+                <ToolbarSpacer />
+                <Button
+                    id="closeButton"
+                    visible="false"
+                    tooltip="{i18n>template.close.tooltip}"
+                    icon="sap-icon://decline"
+                    press="onClosePress" />
+            </headerContent>
+            <content>
+                <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="10%">
+                    <Title text="DM 테스트"/>
+                </FlexBox>
+                <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="10%">
+                    <Button text="1" type="Accept" /><Button text="2" type="Reject" />
+                </FlexBox>
+
+
+                <!--<Table id="table" inset="false" headerText="Sample Table">
+                    <columns>
+                        <Column>
+                            <header>
+                                <Label text="Column 1"/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Column 2"/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Column 3"/>
+                            </header>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="aa"/>
+                                <Text text="bb"/>
+                                <Text text="cc"/>
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="aa"/>
+                                <Text text="bb"/>
+                                <Text text="cc"/>
+                            </cells>
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="aa"/>
+                                <Text text="bb"/>
+                                <Text text="cc"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                -->
+
+                <Table items="{apiData>/steps}">
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="Steps" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column>
+                            <Text text="Step ID" />
+                        </Column>
+                        <Column>
+                            <Text text="Description" />
+                        </Column>
+                        <Column>
+                            <Text text="Planned Work Center" />
+                        </Column>
+                        <Column>
+                            <Text text="Scheduled Start Date" />
+                        </Column>
+                        <Column>
+                            <Text text="Scheduled Completion Date" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{apiData>stepId}" />
+                                <Text text="{apiData>description}" />
+                                <Text text="{apiData>plannedWorkCenter}" />
+                                <Text text="{apiData>operationScheduledStartDate}" />
+                                <Text text="{apiData>operationScheduledCompletionDate}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+              
+            </content>
+
+        </Page>
+
+    </App>
+</mvc:View>
