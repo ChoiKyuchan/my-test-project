@@ -19,7 +19,7 @@ sap.ui.define([
             this.getView().byId("headerTitle").setText(podConfigs.title);
 
             //Example of calling public API
-            var TestJsonData = new JSONModel();
+            /* var TestJsonData = new JSONModel();
             
             this.get(apis.get_sfcDetails,{
                plant: this.getPlant(),
@@ -29,8 +29,8 @@ sap.ui.define([
                TestJsonData.setData(res)
            })
 
-           this.getView().setModel(TestJsonData, "apiData");
-           
+           this.getView().setModel(TestJsonData, "apiData"); */
+
         },
         onBeforeRenderingPlugin: function () {
 
@@ -78,7 +78,17 @@ sap.ui.define([
             MessageToast.show('Back Button Pressed!')
         },
         onClickAlertButton: function (oEvent) {
-            MessageToast.show('TEST 버튼 클릭')
+            var TestJsonData = new JSONModel();
+            
+            this.get(apis.get_sfcDetails,{
+                plant: this.getPlant(),
+                sfc:"S000000124"
+            }).then(res=>{
+                TestJsonData.setData(res)
+                MessageToast.show('S000000124 조회 완료')
+            }).catch(MessageToast.show('조회 불가'))
+
+            this.getView().setModel(TestJsonData, "apiData");
         },
 
         onExit: function () {
