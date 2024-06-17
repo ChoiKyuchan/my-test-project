@@ -25,89 +25,47 @@
                     press="onClosePress" />
             </headerContent>
             <content>
-                <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="10%">
-                    <Title text="DM 테스트"/>
-                </FlexBox>
-                <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="10%">
-                    <Button text="1" type="Accept" /><Button text="2" type="Reject" />
-                </FlexBox>
+                <!-- <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="5%">
+                    <Button id="alerttButton"
+                            text="alert"
+                            type="Accept"
+                            press="onClickAlertButton" />
+                </FlexBox> -->
 
-
-                <!--<Table id="table" inset="false" headerText="Sample Table">
-                    <columns>
-                        <Column>
-                            <header>
-                                <Label text="Column 1"/>
-                            </header>
-                        </Column>
-                        <Column>
-                            <header>
-                                <Label text="Column 2"/>
-                            </header>
-                        </Column>
-                        <Column>
-                            <header>
-                                <Label text="Column 3"/>
-                            </header>
-                        </Column>
-                    </columns>
+                <Text text='적재위치' />
+                <ComboBox items="{apiStorageLocations>/content}" width="100px" change=".onSelectCombo">
                     <items>
-                        <ColumnListItem>
-                            <cells>
-                                <Text text="aa"/>
-                                <Text text="bb"/>
-                                <Text text="cc"/>
-                            </cells>
-                        </ColumnListItem>
-                        <ColumnListItem>
-                            <cells>
-                                <Text text="aa"/>
-                                <Text text="bb"/>
-                                <Text text="cc"/>
-                            </cells>
-                        </ColumnListItem>
-                        <ColumnListItem>
-                            <cells>
-                                <Text text="aa"/>
-                                <Text text="bb"/>
-                                <Text text="cc"/>
-                            </cells>
-                        </ColumnListItem>
+                        <core:Item xmlns:core="sap.ui.core" key="{apiStorageLocations>storageLocation}" text="{apiStorageLocations>storageLocation}"/>
                     </items>
-                </Table>
-                -->
+                </ComboBox>
 
-                <Table items="{apiData>/steps}">
+                <Table items="{apiInventories>/content}" id ="tttable">
                     <headerToolbar>
                         <Toolbar>
-                            <Title text="Steps" />
+                            <Title text="적재위치별 재고조회" />
                         </Toolbar>
                     </headerToolbar>
                     <columns>
                         <Column>
-                            <Text text="Step ID" />
+                            <Text text="inventoryId" />
                         </Column>
                         <Column>
-                            <Text text="Description" />
+                            <Text text="material" />
                         </Column>
                         <Column>
-                            <Text text="Planned Work Center" />
+                            <Text text="storageLocation" />
                         </Column>
                         <Column>
-                            <Text text="Scheduled Start Date" />
-                        </Column>
-                        <Column>
-                            <Text text="Scheduled Completion Date" />
+                            <Text text="value" />
                         </Column>
                     </columns>
                     <items>
                         <ColumnListItem>
                             <cells>
-                                <Text text="{apiData>stepId}" />
-                                <Text text="{apiData>description}" />
-                                <Text text="{apiData>plannedWorkCenter}" />
-                                <Text text="{apiData>operationScheduledStartDate}" />
-                                <Text text="{apiData>operationScheduledCompletionDate}" />
+                                <Text text="{apiInventories>inventoryId}" />
+                                <Text text="{apiInventories>material}" />
+                                <Text text="{apiInventories>storageLocation}" />
+                                <Text text="{apiInventories>/quantityOnHand>value}" />
                             </cells>
                         </ColumnListItem>
                     </items>
