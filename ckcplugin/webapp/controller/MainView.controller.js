@@ -14,7 +14,8 @@ sap.ui.define([
     let apis = {
         get_sfcDetails: "sfc/v1/sfcdetail",
         get_inventories: "inventory/v1/inventories",
-        get_storageLocations: "inventory/v1/storageLocations"
+        get_storageLocations: "inventory/v1/storageLocations",
+        post_inventoriesTransfer: "inventory/v1/inventories/transfer"
     }
     return BaseController.extend("dongkuk.custom.plugin.ckcplugin.controller.MainView", {
         onInit: function () {
@@ -30,21 +31,22 @@ sap.ui.define([
             this.get(apis.get_storageLocations,{
                plant: this.getPlant()
             }).then(res=>{
-                MessageToast.show('storageLocations 조회 성공')
-                console.log('storageLocations api call 성공')
+                MessageToast.show('storageLocations 조회 성공');
+                console.log('storageLocations api call 성공 : ' + JSON.stringify(res));
 
-                TestJsonData.setData(res)
-                this.getView().setModel(TestJsonData, "apiStorageLocations")
+                TestJsonData.setData(res);
+                this.getView().setModel(TestJsonData, "apiStorageLocations");
 
-                console.log(res)
+                console.log(res);
+                
             }).catch(error=>{
                 MessageToast.show(error.message)
-                console.log('storageLocations api call 실패 -> JSON file read')
+                console.log('storageLocations api call 실패 -> JSON file read : ' + JSON.stringify(error));
 
-                TestJsonData = new JSONModel(apiStorageLocations)
-                this.getView().setModel(TestJsonData, "apiStorageLocations")
+                TestJsonData = new JSONModel(apiStorageLocations);
+                this.getView().setModel(TestJsonData, "apiStorageLocations");
 
-                console.log(TestJsonData)
+                console.log(TestJsonData);
             })
             
             console.log('api call end');
@@ -109,6 +111,46 @@ sap.ui.define([
             this.getView().setModel(TestJsonData, "apiData");*/
         },
 
+        onRadioButtonASelect: function (oEvent) {
+            console.log('onRadioButtonASelect click!!');
+        },
+
+        onClickMoveButton: function (oEvent) {
+            console.log('onClickMoveButton click!!');
+
+            var oModel = this.getView().getModel("apiInventories");
+            var oContent = oModel.getProperty("/content");
+
+            var oTable = this.getView().byId("testTable");
+            var aItems = oTable.getItems();
+            var selIndex = -1;
+            
+            aItems.forEach(function (oItem, iIndex) 
+            {
+                var oRadioButton = oItem.getCells()[0]; // 선택 셀이 첫번째임
+             
+                if (oRadioButton.getSelected()) 
+                {
+                    selIndex = iIndex;
+                }
+            });
+            
+            //alert(oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure);
+
+            this.post(apis.post_inventoriesTransfer,{
+                plant: this.getPlant(),
+                inventoryId: oContent[selIndex].inventoryId,
+                lastModifiedDateTime: oContent[selIndex].modifiedDateTime,
+                quantity: {unitOfMeasure: {internalUnitOfMeasure: oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure}, value:oContent[selIndex].quantityOnHand.value},
+                storageLocation: this.getView().byId("transLocId").getValue(),
+             }).then(res=>{
+                 console.log(JSON.stringify(res))
+             }).catch(error=>{
+                 console.log(JSON.stringify(error))
+             })
+             console.log('post api 처리완료');
+        },
+
         onSelectCombo: function(param) {
             MessageToast.show(param.getSource().getSelectedKey());
 
@@ -118,19 +160,19 @@ sap.ui.define([
                plant: this.getPlant(),
                storageLocation: param.getSource().getSelectedKey()
             }).then(res=>{
-                console.log('inventories api call 성공')
+                console.log('inventories api call 성공 : ' + JSON.stringify(res));
 
-                TestJsonData.setData(res)
-                this.getView().setModel(TestJsonData, "apiInventories")
+                TestJsonData.setData(res);
+                this.getView().setModel(TestJsonData, "apiInventories");
 
-                console.log(res)
+                console.log(res);
             }).catch(error=>{
-                console.log('inventories api call 실패 -> JSON file read')
+                console.log('inventories api call 실패 -> JSON file read : ' + JSON.stringify(error));
 
-                TestJsonData = new JSONModel(apiInventories)
-                this.getView().setModel(TestJsonData, "apiInventories")
+                TestJsonData = new JSONModel(apiInventories);
+                this.getView().setModel(TestJsonData, "apiInventories");
 
-                console.log(TestJsonData)
+                console.log(TestJsonData);
             })
             console.log('api call end');
 

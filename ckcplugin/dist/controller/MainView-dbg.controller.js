@@ -14,15 +14,16 @@ sap.ui.define([
     let apis = {
         get_sfcDetails: "sfc/v1/sfcdetail",
         get_inventories: "inventory/v1/inventories",
-        get_storageLocations: "inventory/v1/storageLocations"
+        get_storageLocations: "inventory/v1/storageLocations",
+        post_inventoriesTransfer: "inventory/v1/inventories/transfer"
     }
     return BaseController.extend("dongkuk.custom.plugin.ckcplugin.controller.MainView", {
         onInit: function () {
             BaseController.prototype.onInit.apply(this, arguments);
             podConfigs = this._getConfiguration()
-            this.getView().byId("idBackButton").setVisible(podConfigs.backButtonVisible);
-            this.getView().byId("closeButton").setVisible(podConfigs.closeButtonVisible);
-            this.getView().byId("headerTitle").setText(podConfigs.title);
+            //this.getView().byId("idBackButton").setVisible(podConfigs.backButtonVisible);
+            //this.getView().byId("closeButton").setVisible(podConfigs.closeButtonVisible);
+            //this.getView().byId("headerTitle").setText(podConfigs.title);
 
             //Example of calling public API
             var TestJsonData = new JSONModel();
@@ -37,8 +38,8 @@ sap.ui.define([
                 this.getView().setModel(TestJsonData, "apiStorageLocations")
 
                 console.log(res)
-            }).catch(res=>{
-                MessageToast.show('storageLocations 조회 불가 => JSON file read')
+            }).catch(error=>{
+                MessageToast.show(error.message)
                 console.log('storageLocations api call 실패 -> JSON file read')
 
                 TestJsonData = new JSONModel(apiStorageLocations)
@@ -109,6 +110,46 @@ sap.ui.define([
             this.getView().setModel(TestJsonData, "apiData");*/
         },
 
+        onRadioButtonASelect: function (oEvent) {
+            console.log('onRadioButtonASelect click!!');
+        },
+
+        onClickMoveButton: function (oEvent) {
+            console.log('onClickMoveButton click!!');
+
+            var oModel = this.getView().getModel("apiInventories");
+            var oContent = oModel.getProperty("/content");
+
+            var oTable = this.getView().byId("testTable");
+            var aItems = oTable.getItems();
+            var selIndex = -1;
+            
+            aItems.forEach(function (oItem, iIndex) 
+            {
+                var oRadioButton = oItem.getCells()[0]; // 선택 셀이 첫번째임
+             
+                if (oRadioButton.getSelected()) 
+                {
+                    selIndex = iIndex;
+                }
+            });
+            
+            //alert(oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure);
+
+            this.post(apis.post_inventoriesTransfer,{
+                plant: this.getPlant(),
+                inventoryId: oContent[selIndex].inventoryId,
+                lastModifiedDateTime: oContent[selIndex].modifiedDateTime,
+                quantity: {unitOfMeasure: {internalUnitOfMeasure: oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure}, value:oContent[selIndex].quantityOnHand.value},
+                storageLocation: this.getView().byId("transLocId").getValue(),
+             }).then(res=>{
+                 console.log(JSON.stringify(res))
+             }).catch(error=>{
+                 console.log(JSON.stringify(error))
+             })
+             console.log('post api 처리완료');
+        },
+
         onSelectCombo: function(param) {
             MessageToast.show(param.getSource().getSelectedKey());
 
@@ -124,7 +165,7 @@ sap.ui.define([
                 this.getView().setModel(TestJsonData, "apiInventories")
 
                 console.log(res)
-            }).catch(res=>{
+            }).catch(error=>{
                 console.log('inventories api call 실패 -> JSON file read')
 
                 TestJsonData = new JSONModel(apiInventories)

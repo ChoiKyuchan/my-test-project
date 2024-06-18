@@ -1,12 +1,13 @@
 <mvc:View 
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:html="http://www.w3.org/1999/xhtml"
     controllerName="dongkuk.custom.plugin.ckcplugin.controller.MainView"
     busyIndicatorDelay="0"
     height="100%">
     <App>
         <Page>
-            <headerContent>
+            <!-- <headerContent>
                 <Button
                     id="idBackButton"
                     visible="false"
@@ -15,7 +16,7 @@
                     icon="sap-icon://nav-back"
                     press="onBackButtonPress" />
                 <ToolbarSpacer />    
-                <Title id="headerTitle" text="SAP DMC POD Plugin" />
+                <Title id="headerTitle" text="SAP DMC POD Plugin 개발 테스트" />
                 <ToolbarSpacer />
                 <Button
                     id="closeButton"
@@ -23,8 +24,17 @@
                     tooltip="{i18n>template.close.tooltip}"
                     icon="sap-icon://decline"
                     press="onClosePress" />
-            </headerContent>
+            </headerContent> -->
+
             <content>
+                <html:style>
+                    .uppercaseInput input {
+                        text-transform: uppercase;
+                        color: blue;
+                        font-weight: bold;
+                    }
+                </html:style>
+
                 <!-- <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="5%">
                     <Button id="alerttButton"
                             text="alert"
@@ -32,22 +42,40 @@
                             press="onClickAlertButton" />
                 </FlexBox> -->
 
-                <Text text='적재위치' />
-                <ComboBox items="{apiStorageLocations>/content}" width="100px" change=".onSelectCombo">
-                    <items>
-                        <core:Item xmlns:core="sap.ui.core" key="{apiStorageLocations>storageLocation}" text="{apiStorageLocations>storageLocation}"/>
-                    </items>
-                </ComboBox>
-
-                <Table items="{apiInventories>/content}" id ="tttable">
+                <Table items="{apiInventories>/content}" id ="testTable">
                     <headerToolbar>
                         <Toolbar>
                             <Title text="적재위치별 재고조회" />
+                            <ComboBox items="{apiStorageLocations>/content}" width="100px" change=".onSelectCombo">
+                                <items>
+                                    <core:Item xmlns:core="sap.ui.core" key="{apiStorageLocations>storageLocation}" text="{apiStorageLocations>storageLocation}"/>
+                                </items>
+                            </ComboBox>
+                            <Input id="transLocId" class="uppercaseInput" width="70px"></Input>
+                            <Button id="moveButton"
+                                    text="Move"
+                                    type="Accept"
+                                    press="onClickMoveButton" />
                         </Toolbar>
                     </headerToolbar>
                     <columns>
+                        <Column  width="100px">
+                            <Text text="select" />
+                        </Column>
                         <Column>
                             <Text text="inventoryId" />
+                        </Column>
+                        <Column>
+                            <Text text="lastModifiedDateTime" />
+                        </Column>
+                        <Column>
+                            <Text text="plant" />
+                        </Column>
+                        <Column>
+                            <Text text="unitOfMeasure" />
+                        </Column>
+                        <Column>
+                            <Text text="value" />
                         </Column>
                         <Column>
                             <Text text="material" />
@@ -55,17 +83,18 @@
                         <Column>
                             <Text text="storageLocation" />
                         </Column>
-                        <Column>
-                            <Text text="value" />
-                        </Column>
                     </columns>
                     <items>
                         <ColumnListItem>
                             <cells>
-                                <Text text="{apiInventories>inventoryId}" />
+                                <RadioButton select="onRadioButtonASelect" groupName="groupA" id="groupA" />
+                                <Text text="{apiInventories>inventoryId}" /> <!-- POST required body start -->
+                                <Text text="{apiInventories>modifiedDateTime}" />
+                                <Text text="{apiInventories>plant}" />
+                                <Text text="{apiInventories>quantityOnHand/unitOfMeasure/internalUnitOfMeasure}" />
+                                <Text text="{apiInventories>quantityOnHand/value}" />
+                                <Text text="{apiInventories>storageLocation}" />  <!-- POST required body end -->
                                 <Text text="{apiInventories>material}" />
-                                <Text text="{apiInventories>storageLocation}" />
-                                <Text text="{apiInventories>/quantityOnHand>value}" />
                             </cells>
                         </ColumnListItem>
                     </items>

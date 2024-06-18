@@ -13,7 +13,7 @@ modules:
     httpHeaders:
        - X-Frame-Options: deny
     CORS: "[{\"uriPattern\": \"^/ckcplugin/(.*)$\",\"allowedOrigin\": [
-           {\"host\": \"cloud-platform-integration-partner-p300005-qhzagpq9.test.execution.us20.dmc.cloud.sap\",\"protocol\": \"https\"}],
+           {\"host\": \"*\",\"protocol\": \"https\"}],
            \"allowedMethods\": [\"GET\",\"OPTIONS\"],
            \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
            \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
