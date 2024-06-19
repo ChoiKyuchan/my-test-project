@@ -46,12 +46,14 @@
                     <headerToolbar>
                         <Toolbar>
                             <Title text="적재위치별 재고조회" />
-                            <ComboBox items="{apiStorageLocations>/content}" width="100px" change=".onSelectCombo">
+                            <ComboBox id="comboLoc" items="{apiStorageLocations>/content}" width="100px" change=".onSelectCombo">
                                 <items>
                                     <core:Item xmlns:core="sap.ui.core" key="{apiStorageLocations>storageLocation}" text="{apiStorageLocations>storageLocation}"/>
                                 </items>
                             </ComboBox>
-                            <Input id="transLocId" class="uppercaseInput" width="70px"></Input>
+                            <Label text=""></Label>
+                            <Title text="재고이동" />
+                            <Input type="Text" id="transLocId" class="uppercaseInput" width="100px" placeholder="적재위치"></Input>
                             <Button id="moveButton"
                                     text="Move"
                                     type="Accept"
@@ -78,10 +80,10 @@
                             <Text text="value" />
                         </Column>
                         <Column>
-                            <Text text="material" />
+                            <Text text="storageLocation" />
                         </Column>
                         <Column>
-                            <Text text="storageLocation" />
+                            <Text text="material" />
                         </Column>
                     </columns>
                     <items>

@@ -31,21 +31,22 @@ sap.ui.define([
             this.get(apis.get_storageLocations,{
                plant: this.getPlant()
             }).then(res=>{
-                MessageToast.show('storageLocations 조회 성공')
-                console.log('storageLocations api call 성공')
+                MessageToast.show('storageLocations 조회 성공');
+                console.log('storageLocations api call 성공 : ' + JSON.stringify(res));
 
-                TestJsonData.setData(res)
-                this.getView().setModel(TestJsonData, "apiStorageLocations")
+                TestJsonData.setData(res);
+                this.getView().setModel(TestJsonData, "apiStorageLocations");
 
-                console.log(res)
+                console.log(res);
+                
             }).catch(error=>{
                 MessageToast.show(error.message)
-                console.log('storageLocations api call 실패 -> JSON file read')
+                console.log('storageLocations api call 실패 -> JSON file read : ' + JSON.stringify(error));
 
-                TestJsonData = new JSONModel(apiStorageLocations)
-                this.getView().setModel(TestJsonData, "apiStorageLocations")
+                TestJsonData = new JSONModel(apiStorageLocations);
+                this.getView().setModel(TestJsonData, "apiStorageLocations");
 
-                console.log(TestJsonData)
+                console.log(TestJsonData);
             })
             
             console.log('api call end');
@@ -111,7 +112,12 @@ sap.ui.define([
         },
 
         onRadioButtonASelect: function (oEvent) {
-            console.log('onRadioButtonASelect click!!');
+            //console.log('onRadioButtonASelect click!!');
+            //this.onSelectComboaaa(this.getView().byId("comboLoc").getValue());
+        },
+
+        onSelectComboaaa: function(param) {
+            //MessageToast.show(param.toUpperCase());
         },
 
         onClickMoveButton: function (oEvent) {
@@ -126,52 +132,67 @@ sap.ui.define([
             
             aItems.forEach(function (oItem, iIndex) 
             {
-                var oRadioButton = oItem.getCells()[0]; // 선택 셀이 첫번째임
+                var oRadioButton = oItem.getCells()[0]; // 선택 셀이 첫번째임 (라디오버튼)
              
                 if (oRadioButton.getSelected()) 
                 {
-                    selIndex = iIndex;
+                    selIndex = iIndex; // 선택 Index
                 }
             });
             
             //alert(oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure);
+
+            let transLocId = (this.getView().byId("transLocId").getValue()).toUpperCase();
+            console.log('move storageLocation = ' + transLocId);
 
             this.post(apis.post_inventoriesTransfer,{
                 plant: this.getPlant(),
                 inventoryId: oContent[selIndex].inventoryId,
                 lastModifiedDateTime: oContent[selIndex].modifiedDateTime,
                 quantity: {unitOfMeasure: {internalUnitOfMeasure: oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure}, value:oContent[selIndex].quantityOnHand.value},
-                storageLocation: this.getView().byId("transLocId").getValue(),
+                storageLocation: transLocId,
              }).then(res=>{
-                 console.log(JSON.stringify(res))
+                 console.log(JSON.stringify(res));
              }).catch(error=>{
                  console.log(JSON.stringify(error))
              })
+
+             this.onSelectCombo(this.getView().byId("comboLoc").getValue()); // 이동 후 재조회
              console.log('post api 처리완료');
         },
 
         onSelectCombo: function(param) {
-            MessageToast.show(param.getSource().getSelectedKey());
+            //MessageToast.show(param.getSource().getSelectedKey());
+            console.log('typeof(param) = ' + typeof(param));
+
+            let sLoc;
+            if(typeof(param) === 'string') {
+                console.log('이동 후 재조회');
+                sLoc = param;
+            } else {
+                sLoc = param.getSource().getSelectedKey();
+            }
+            MessageToast.show(sLoc);
 
             var TestJsonData = new JSONModel();
             console.log('api call start');
             this.get(apis.get_inventories,{
                plant: this.getPlant(),
-               storageLocation: param.getSource().getSelectedKey()
+               storageLocation: sLoc,
             }).then(res=>{
-                console.log('inventories api call 성공')
+                console.log('inventories api call 성공 : ' + JSON.stringify(res));
 
-                TestJsonData.setData(res)
-                this.getView().setModel(TestJsonData, "apiInventories")
+                TestJsonData.setData(res);
+                this.getView().setModel(TestJsonData, "apiInventories");
 
-                console.log(res)
+                console.log(res);
             }).catch(error=>{
-                console.log('inventories api call 실패 -> JSON file read')
+                console.log('inventories api call 실패 -> JSON file read : ' + JSON.stringify(error));
 
-                TestJsonData = new JSONModel(apiInventories)
-                this.getView().setModel(TestJsonData, "apiInventories")
+                TestJsonData = new JSONModel(apiInventories);
+                this.getView().setModel(TestJsonData, "apiInventories");
 
-                console.log(TestJsonData)
+                console.log(TestJsonData);
             })
             console.log('api call end');
 
