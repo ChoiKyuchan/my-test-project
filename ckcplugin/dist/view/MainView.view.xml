@@ -54,6 +54,8 @@
                             <Label text=""></Label>
                             <Title text="재고이동" />
                             <Input type="Text" id="transLocId" class="uppercaseInput" width="100px" placeholder="적재위치"></Input>
+                            <Title text="수량" />
+                            <Input type="Text" id="transQuantity" width="100px" placeholder="수량"></Input>
                             <Button id="moveButton"
                                     text="Move"
                                     type="Accept"

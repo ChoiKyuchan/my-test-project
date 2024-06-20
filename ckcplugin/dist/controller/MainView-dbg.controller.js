@@ -143,13 +143,16 @@ sap.ui.define([
             //alert(oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure);
 
             let transLocId = (this.getView().byId("transLocId").getValue()).toUpperCase();
+            let transQuantity = (this.getView().byId("transQuantity").getValue());
             console.log('move storageLocation = ' + transLocId);
+            console.log('move transQuantity = ' + transQuantity);
 
             this.post(apis.post_inventoriesTransfer,{
                 plant: this.getPlant(),
                 inventoryId: oContent[selIndex].inventoryId,
                 lastModifiedDateTime: oContent[selIndex].modifiedDateTime,
-                quantity: {unitOfMeasure: {internalUnitOfMeasure: oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure}, value:oContent[selIndex].quantityOnHand.value},
+                //quantity: {unitOfMeasure: {internalUnitOfMeasure: oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure}, value:oContent[selIndex].quantityOnHand.value},
+                quantity: {unitOfMeasure: {internalUnitOfMeasure: oContent[selIndex].quantityOnHand.unitOfMeasure.internalUnitOfMeasure}, value:transQuantity},
                 storageLocation: transLocId,
              }).then(res=>{
                  console.log(JSON.stringify(res));
