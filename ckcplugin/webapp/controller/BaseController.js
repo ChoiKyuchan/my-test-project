@@ -104,6 +104,23 @@ sap.ui.define(
           
           });
         },
+
+        getLocal: function (api, params) {
+          return new Promise((resolve, reject) => {
+            const paramData = {'api':api};
+            const mergeData = {...paramData,...params};
+            const data = {...mergeData, 'plant':'P_SECT'};
+
+            $.ajax({
+              url: 'http://localhost:4000/',
+              method: "GET",
+              data: data,
+              success: resolve,
+              error: reject,
+            });
+          });
+        },
+
         getoData: function (api, params) {
           return new Promise((resolve, reject) => {
             if (this.getPodController()) {

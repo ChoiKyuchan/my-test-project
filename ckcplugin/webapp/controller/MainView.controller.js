@@ -27,8 +27,8 @@ sap.ui.define([
 
             //Example of calling public API
             var TestJsonData = new JSONModel();
-            console.log('api call start');
-            this.get(apis.get_storageLocations,{
+             console.log('api call start');
+            this.getLocal(apis.get_storageLocations,{
                plant: this.getPlant()
             }).then(res=>{
                 MessageToast.show('storageLocations 조회 성공');
@@ -49,6 +49,21 @@ sap.ui.define([
                 console.log(TestJsonData);
             })
             
+            // $.ajax({
+            //     url: 'http://localhost:4000/',
+            //     method: "GET",
+            //     data: { api: 'get_storageLocations',
+            //             plant: 'P_SECT',
+            //           },
+            //     dataType : "json",
+            //     success: (resolve)=>{
+            //         TestJsonData.setData(resolve);
+            //         this.getView().setModel(TestJsonData, "apiStorageLocations");    
+            //     },
+            //     error: (oError)=>{console.log(oError);},
+            //   });
+
+
             console.log('api call end');
             
         },
@@ -179,7 +194,7 @@ sap.ui.define([
 
             var TestJsonData = new JSONModel();
             console.log('api call start');
-            this.get(apis.get_inventories,{
+            this.getLocal(apis.get_inventories,{
                plant: this.getPlant(),
                storageLocation: sLoc,
             }).then(res=>{
