@@ -109,11 +109,28 @@ sap.ui.define(
           return new Promise((resolve, reject) => {
             const paramData = {'api':api};
             const mergeData = {...paramData,...params};
-            const data = {...mergeData, 'plant':'P_SECT'};
+            const data = {...mergeData, 'plant':'P_SECT'}; // plant 수정
 
             $.ajax({
               url: 'http://localhost:4000/',
               method: "GET",
+              data: data,
+              success: resolve,
+              error: reject,
+            });
+          });
+        },
+
+        postLocal: function (api, params) {
+          return new Promise((resolve, reject) => {
+            const paramData = {'api':api};
+            const mergeData = {...paramData,...params};
+            const data = {...mergeData, 'plant':'P_SECT'}; // plant 수정
+
+            $.ajax({
+              url: 'http://localhost:4000/',
+              method: "POST",
+              contentType: "application/x-www-form-urlencoded",
               data: data,
               success: resolve,
               error: reject,

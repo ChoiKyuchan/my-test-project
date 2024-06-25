@@ -162,7 +162,7 @@ sap.ui.define([
             console.log('move storageLocation = ' + transLocId);
             console.log('move transQuantity = ' + transQuantity);
 
-            this.post(apis.post_inventoriesTransfer,{
+            this.postLocal(apis.post_inventoriesTransfer,{
                 plant: this.getPlant(),
                 inventoryId: oContent[selIndex].inventoryId,
                 lastModifiedDateTime: oContent[selIndex].modifiedDateTime,
@@ -172,7 +172,7 @@ sap.ui.define([
              }).then(res=>{
                  console.log(JSON.stringify(res));
              }).catch(error=>{
-                 console.log(JSON.stringify(error))
+                 console.log(JSON.stringify(error));
              })
 
              this.onSelectCombo(this.getView().byId("comboLoc").getValue()); // 이동 후 재조회
