@@ -1,112 +1,25 @@
 <mvc:View 
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
     xmlns:html="http://www.w3.org/1999/xhtml"
     controllerName="dongkuk.custom.plugin.ckcplugin.controller.MainView"
     busyIndicatorDelay="0"
     height="100%">
     <App>
-        <Page>
-            <!-- <headerContent>
-                <Button
-                    id="idBackButton"
-                    visible="false"
-                    text="{i18n>template.back.btn}"
-                    tooltip="{i18n>template.back.tooltip}"
-                    icon="sap-icon://nav-back"
-                    press="onBackButtonPress" />
-                <ToolbarSpacer />    
-                <Title id="headerTitle" text="SAP DMC POD Plugin 개발 테스트" />
-                <ToolbarSpacer />
-                <Button
-                    id="closeButton"
-                    visible="false"
-                    tooltip="{i18n>template.close.tooltip}"
-                    icon="sap-icon://decline"
-                    press="onClosePress" />
-            </headerContent> -->
-
-            <content>
-                <html:style>
-                    .uppercaseInput input {
-                        text-transform: uppercase;
-                        color: blue;
-                        font-weight: bold;
-                    }
-                </html:style>
-
-                <!-- <FlexBox justifyContent="Center" alignItems="Center" width="100%" height="5%">
-                    <Button id="alerttButton"
-                            text="alert"
-                            type="Accept"
-                            press="onClickAlertButton" />
-                </FlexBox> -->
-
-                <Table items="{apiInventories>/content}" id ="testTable">
-                    <headerToolbar>
-                        <Toolbar>
-                            <Title text="적재위치별 재고조회" />
-                            <ComboBox id="comboLoc" items="{apiStorageLocations>/content}" width="100px" change=".onSelectCombo">
-                                <items>
-                                    <core:Item xmlns:core="sap.ui.core" key="{apiStorageLocations>storageLocation}" text="{apiStorageLocations>storageLocation}"/>
-                                </items>
-                            </ComboBox>
-                            <Label text=""></Label>
-                            <Title text="재고이동" />
-                            <Input type="Text" id="transLocId" class="uppercaseInput" width="100px" placeholder="적재위치"></Input>
-                            <Title text="수량" />
-                            <Input type="Text" id="transQuantity" class="uppercaseInput" width="60px" placeholder="수량"></Input>
-                            <Button id="moveButton"
-                                    text="Move"
-                                    type="Accept"
-                                    press="onClickMoveButton" />
-                        </Toolbar>
-                    </headerToolbar>
-                    <columns>
-                        <Column  width="100px">
-                            <Text text="select" />
-                        </Column>
-                        <Column>
-                            <Text text="inventoryId" />
-                        </Column>
-                        <Column>
-                            <Text text="lastModifiedDateTime" />
-                        </Column>
-                        <Column>
-                            <Text text="plant" />
-                        </Column>
-                        <Column>
-                            <Text text="unitOfMeasure" />
-                        </Column>
-                        <Column>
-                            <Text text="value" />
-                        </Column>
-                        <Column>
-                            <Text text="storageLocation" />
-                        </Column>
-                        <Column>
-                            <Text text="material" />
-                        </Column>
-                    </columns>
-                    <items>
-                        <ColumnListItem>
-                            <cells>
-                                <RadioButton select="onRadioButtonASelect" groupName="groupA" id="groupA" />
-                                <Text text="{apiInventories>inventoryId}" /> <!-- POST required body start -->
-                                <Text text="{apiInventories>modifiedDateTime}" />
-                                <Text text="{apiInventories>plant}" />
-                                <Text text="{apiInventories>quantityOnHand/unitOfMeasure/internalUnitOfMeasure}" />
-                                <Text text="{apiInventories>quantityOnHand/value}" />
-                                <Text text="{apiInventories>storageLocation}" />  <!-- POST required body end -->
-                                <Text text="{apiInventories>material}" />
-                            </cells>
-                        </ColumnListItem>
-                    </items>
-                </Table>
-              
-            </content>
-
-        </Page>
-
+        <SplitApp id="splitApp" initialDetail="detail1">
+            <masterPages>
+                <Page id="master" title="메뉴">
+                    <List itemPress="onItemPress">
+                        <StandardListItem title="Inventory Management" type="Navigation" />
+                        <StandardListItem title="Test Page" type="Navigation" />
+                    </List>
+                </Page>
+            </masterPages>
+            <detailPages>
+                <mvc:XMLView id="detail1" viewName="dongkuk.custom.plugin.ckcplugin.view.InventoryView" />
+                <mvc:XMLView id="detail2" viewName="dongkuk.custom.plugin.ckcplugin.view.TestView" />
+            </detailPages>
+        </SplitApp>
     </App>
 </mvc:View>

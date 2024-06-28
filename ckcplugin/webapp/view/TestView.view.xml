@@ -1,0 +1,15 @@
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    controllerName="dongkuk.custom.plugin.ckcplugin.controller.MainView"
+    busyIndicatorDelay="0"
+    height="100%">
+    <App>
+        <Page>
+            <content>
+                <Title id="headerTitle" text="POD Plugin 개발 페이지 2" />
+            </content>
+        </Page>
+    </App>
+</mvc:View>
